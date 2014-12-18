@@ -1,12 +1,13 @@
 #!/usr/bin/python
 
-import json, os, shutil
+import json, os, shutil, yaml
 import logging
 import re
 
 CLUSTER_DOMAIN=os.environ['CLUSTER_DOMAIN']
 
-containers = json.loads(open('/tmp/containers.json','r').read())['containers']
+containers_string = open('/tmp/containers.json','r').read()
+containers = yaml.load(containers_string)['containers']
 
 # delete all existing nginx https redirects
 shutil.rmtree('/etc/nginx/https-redirects/*')
